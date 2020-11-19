@@ -2,12 +2,11 @@
 
 - hosts: all 
   become: yes
-  become_user: "{{ansible_user}}"
   tasks:  
   
   - name: change permissions 
     file:
-      path: "/home/{{user}}/"
+      path: "/home/{{user}}"
       state: directory
       owner: "{{user}}"
       group: "{{user}}"
@@ -15,7 +14,7 @@
 
   - name: create a .ssh folder
     file:
-      path: "~/{{user}}/.ssh"
+      path: "/home/{{user}}/.ssh"
       state: directory
       owner: "{{user}}"
       group: "{{user}}"
@@ -31,7 +30,7 @@
   - name: put devel pubkey to authorized keys
     lineinfile:
       path: "/home/{{user}}/.ssh/authorized_keys"
-      line: "{{ pubkey }}"
+      line: "{{pubkey}}"
       state: present
     tags: pubkey
 
@@ -42,17 +41,18 @@
       dest: "/home/{{user}}/.ssh/id_rsa"
       owner: "{{user}}"
       group: "{{user}}"
-      mode: '0766'
+      mode: '0600'
     tags: copykey
 
-  - name: create a project ofolder
+  - name: create a storage folder
     file:
-      path: "~/{{user}}/{{project_folder}}"
+      path: "/home/{{user}}/{{storage_folder}}"
       state: directory
       mode: '0755'
 
-  - name: pull the project
-    git:
-      repo: "{{project_repo}}" 
-      dest: "~/{{user}}/{{project_folder}}"
+  - name: create a frontend folder
+    file:
+      path: "/home/{{user}}/{{frontend_folder}}"
+      state: directory
+      mode: '0755'
 

@@ -4,13 +4,16 @@ all:
   
   hosts:
     website_dev:
-      ansible_host: 93.93.194.244 
-      ansible_port: 777
+      ansible_host: teamcalendar.test2 
+      ansible_port: 22
       ansible_user: digital
 
   vars:  
-    user: website
+    user: telmekom
     ansible_python_interpreter: /usr/bin/python3
     pubkey: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDN6417Nvyx3Kj3Ex1JEbeThFvAQbePlDO/TTA2FnhTtdHZefFRmq7nZ0BBL9YpINscMxmA5l6hWk9v+buvb7tAbVeIdsoffPiWWx/x0DbfRryiKnFj8r0cfAfMcW7UVEv68660VhIjna9KoxmOKYTnK+C0bCbHPb2difQmvilstTICA1irRl/99uxEJjSjLvRRb8o00P5ogX+X7mwe3Oqw2RXMr/ZkVgAs9hNLgQ8J0EOqc6BrdWRVE7qU3bsVrae7g4c7+ISP9X0fZAEIdoHRyKv6DEk7rkb0JbbSa2UXwEkhJUkW7EDbzPicdP3SF3I9NOJWd8N0kKVRy1+w+Aj47x8fwMyUtVbNJePH+SaAO1mtXkgBA5k+lcR+bbeSwvjPFXXM0me7W9WH4GaX/W26Rx5oojoac9hAwc5RZITGmEMf9q/S+PJpmBcBX5DYX6u10m6zx+mLOOBlCU4D6gAE4kA0wO51J0ATqy/Gmd55Ic9vNoOhSpx3MLNi0tYTfnU= digital+deployment@digitalcube.rs'
-    project_repo: git@github.com:digital-cube/digitalcube.rs-2020.git
-    project_folder: digital-cube
+    project_repo: git@github.com:digital-cube/telmekom-web-base3.git
+    repo_branch: dev
+    backend_folder: telmekom-web-base3
+    frontend_folder: telmekom-website
+    storage_folder: storage

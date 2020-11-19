@@ -1,0 +1,17 @@
+---
+
+- hosts: all 
+  tasks:  
+
+
+  - name: Clear gathered facts from all currently targeted hosts
+    meta: clear_facts
+
+  - name: pull the backend project
+    become: yes
+    become_user: "{{user}}"
+    git:
+      repo: "{{project_repo}}" 
+      dest: "/home/{{user}}/{{backend_folder}}"
+      version: "{{repo_branch}}"
+    tags: backend
