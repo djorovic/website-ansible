@@ -1,0 +1,27 @@
+---
+
+- hosts: all
+
+  tasks:
+  - name: install the missing packages
+    become: yes
+    apt: 
+      update_cache: no 
+      pkg:
+        - joe
+        - git
+        - nginx
+
+
+  - name: create a user 
+    become: yes
+    user:
+      name: "{{user}}"
+      password: "$6$acTG/Rr3rg$.ZLRTP6nG9Pm4bTn0WWYTf3TUsomAXlRfQYj8If3g3dguztG/I6LNgvxsvCp7G1c8QQbjUNLB4lJj64SWZ4PU."
+      # password should be 123, and could be generated with:
+      #         sudo apt install whois
+      #         mkpasswd --method=sha512   (--method=help for all options)
+      state: present
+      shell: /bin/bash       # Defaults to /bin/bash
+      createhome: yes        # Defaults to yes
+      home: "/home/{{user}}/"   # Defaults to /home/username

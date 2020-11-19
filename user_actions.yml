@@ -1,0 +1,58 @@
+---
+
+- hosts: all 
+  become: yes
+  become_user: "{{ansible_user}}"
+  tasks:  
+  
+  - name: change permissions 
+    file:
+      path: "/home/{{user}}/"
+      state: directory
+      owner: "{{user}}"
+      group: "{{user}}"
+      mode: '0766'
+
+  - name: create a .ssh folder
+    file:
+      path: "~/{{user}}/.ssh"
+      state: directory
+      owner: "{{user}}"
+      group: "{{user}}"
+      mode: '0766'
+
+  - name: add file authorized_keys
+    file:
+      path: "/home/{{user}}/.ssh/authorized_keys"
+      state: touch
+    tags: authorized_keys 
+
+    
+  - name: put devel pubkey to authorized keys
+    lineinfile:
+      path: "/home/{{user}}/.ssh/authorized_keys"
+      line: "{{ pubkey }}"
+      state: present
+    tags: pubkey
+
+  - name: copy pubkey, set owner and permissions
+    become: yes
+    copy:
+      src: ~/.ssh/id_rsa_github_deployment
+      dest: "/home/{{user}}/.ssh/id_rsa"
+      owner: "{{user}}"
+      group: "{{user}}"
+      mode: '0766'
+    tags: copykey
+
+  - name: create a project ofolder
+    file:
+      path: "~/{{user}}/{{project_folder}}"
+      state: directory
+      mode: '0755'
+
+  - name: pull the project
+    git:
+      repo: "{{project_repo}}" 
+      dest: "~/{{user}}/{{project_folder}}"
+

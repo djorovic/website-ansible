@@ -1,0 +1,9 @@
+---
+# Orchestrate a multiple playbooks
+
+- name: Playbook_1
+  import_playbook: setup.yml
+
+- name: Playbook_2
+  import_playbook: user_actions.yml
+
